@@ -4,6 +4,7 @@
     AES.helpers = AES.helpers || {};
 
     AES.helpers.cipher = function(input, w) {
+    
       var Nb = 4,
           Nr = w.length/Nb - 1;
       
@@ -20,10 +21,10 @@
           state = AES.functions.mixColumns(state, Nb);
           state = AES.functions.addRoundKey(state, w, round, Nb);
       }
-      
+
       state = AES.functions.subBytes(state, Nb);
       state = AES.functions.shiftRows(state, Nb);
-      state = AES.Functions.addRoundKey(state, w, Nr, Nb);
+      state = AES.functions.addRoundKey(state, w, Nr, Nb);
 
       var output = new Array(4*Nb);
 

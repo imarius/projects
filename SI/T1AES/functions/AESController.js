@@ -8,7 +8,7 @@
       
       if (!(nBits === 128 || nBits === 192 || nBits === 256)) return '';
       
-      ciphertext = String(cipher).base64Decode();
+      var ciphertext = String(cipher).base64Decode(),
       password = String(password).utf8Encode();
       
       var nBytes = nBits/8,
@@ -80,8 +80,8 @@
       var counterBlock = new Array(blockSize);
 
       var nonce = (new Date()).getTime(),
-          nonceMs = nonce % 1000;
-          nonceSec = Math.floor(nonce / 1000);
+          nonceMs = nonce % 1000,
+          nonceSec = Math.floor(nonce / 1000),
           nonceRnd = Math.floor(Math.random() * 0xffff);
 
       for (var i = 0; i < 2; i++) counterBlock[i]   = (nonceMs  >>> i * 8) & 0xff;

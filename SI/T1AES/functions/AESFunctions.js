@@ -3,7 +3,7 @@
     
     AES.functions = AES.functions || {};
 
-    AES.functions.keyExpansions = function (key) {
+    AES.functions.keyExpansion = function (key) {
       var Nb = 4,            
           Nk = key.length/4,
           Nr = Nk + 6;       
