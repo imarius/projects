@@ -59,7 +59,7 @@
       return plaintext;
     };
     
-    Aes.Ctr.encrypt = function(plaintext, password, nBits) {
+    AES.controller.encrypt = function(plaintext, password, nBits) {
       var blockSize = 16;
       
       if (!(nBits === 128 || nBits === 192 || nBits === 256)) return '';
