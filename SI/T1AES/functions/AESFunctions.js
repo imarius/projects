@@ -21,8 +21,8 @@
         for (var t = 0; t < 4; t++) temp[t] = w[i - 1][t];
 
         if (i % Nk == 0) {
-          temp = AES.functions.subWord(Aes.rotWord(temp));
-          for (var t = 0; t < 4; t++) temp[t] ^= Aes.rCon[i/Nk][t];
+          temp = AES.functions.subWord(AES.functions.rotWord(temp));
+          for (var t = 0; t < 4; t++) temp[t] ^= AES.constants.rCon[i/Nk][t];
         }
 
         else if (Nk > 6 && i%Nk == 4) {
@@ -37,14 +37,14 @@
 
     AES.functions.subBytes = function (s, Nb) {
       for (var r=0; r<4; r++) {
-        for (var c=0; c<Nb; c++) s[r][c] = Aes.sBox[s[r][c]];
+        for (var c=0; c<Nb; c++) s[r][c] = AES.constants.sBox[s[r][c]];
       }
       
       return s;
     }
     
     AES.functions.subWord = function (w) {
-      for (var i = 0; i < 4; i++) w[i] = Aes.sBox[w[i]];
+      for (var i = 0; i < 4; i++) w[i] = AES.constants.sBox[w[i]];
     
       return w;
     };
