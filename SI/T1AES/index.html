@@ -18,6 +18,34 @@
         <script type="text/javascript" src="functions/AESHelpers.js"></script>
         <script type="text/javascript" src="functions/AESFunctions.js"></script>
         <script type="text/javascript" src="functions/AESController.js"></script>
+        
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $("#encrypt").on("click", function() {
+              var message = $("#plaintext").val();
+              var password = $("#password").val();
+              var encryption = $("#encryption").val(); 
+             
+              var returnData = AES.controller.encrypt(message, password, parseInt(encryption));
+              
+              $("#encrypt-results").fadeIn();
+              $("#enc-res").html(returnData);
+              
+              return false;
+            });
+            
+            $("#clear-encrypt").on("click", function() {
+              $("#plaintext").val("");
+              $("#password").val("");
+              $("#encryption").val("");
+              
+              $("#encrypt-results").fadeOut();
+              $("#enc-res").html('');
+              
+              return false;
+            })
+          });
+        </script>
     </head>
     <body>
     <div class="container">
@@ -50,8 +78,10 @@
               </div>
             </div>
           </div>
-          <div id="encrypt-results">
+          <div id="encrypt-results" style="display: none;">
             <!-- Results View -->
+            <h4>Cypher :</h4>
+            <pre id="enc-res"></pre>
           </div>
           <hr/ >
         </div>
