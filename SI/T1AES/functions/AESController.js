@@ -4,6 +4,7 @@
     AES.controller = AES.controller || {};
     
     AES.controller.decrypt = function (cipher, password, nBits) {
+      var start = new Date().getTime();
       var blockSize = 16;
       
       if (!(nBits === 128 || nBits === 192 || nBits === 256)) return '';
@@ -56,10 +57,20 @@
       var plaintext = plaintxt.join('');
       plaintext = plaintext.utf8Decode();
 
-      return plaintext;
+      var end = new Date().getTime();
+      
+      var executionTime = end - start;
+      
+      var returnData = {
+        output : plaintext,
+        executionTime : executionTime
+      };
+      
+      return returnData;
     };
     
     AES.controller.encrypt = function(plaintext, password, nBits) {
+      var start = new Date().getTime();
       var blockSize = 16;
       
       if (!(nBits === 128 || nBits === 192 || nBits === 256)) return '';
@@ -115,6 +126,15 @@
       var ciphertext = ctrTxt + ciphertxt.join('');
       ciphertext = ciphertext.base64Encode();
 
-      return ciphertext;
+      var end = new Date().getTime();
+      
+      var time = end - start;
+      
+      var returnData = {
+        output : ciphertext,
+        executionTime : time
+      };
+      
+      return returnData;
     };
 }(window.AES))
