@@ -22,32 +22,52 @@
         <script type="text/javascript">
           $(document).ready(function() {
             $("#encrypt").on("click", function() {
-              var message = $("#plaintext").val();
-              var password = $("#password").val();
-              var encryption = $("#encryption").val(); 
-             
-              var returnData = AES.controller.encrypt(message, password, parseInt(encryption));
-              
-              $("#encrypt-results").fadeIn();
-              $("#enc-res").html(returnData.output);
-              $("#enc-res").append("<br /><br />Execution time : " + returnData.executionTime + " ms");
-              
-              return false;
+              try {
+                $("#error").hide();
+                var message = $("#plaintext").val();
+                var password = $("#password").val();
+                var encryption = $("#encryption").val(); 
+               
+                var returnData = AES.controller.encrypt(message, password, parseInt(encryption));
+
+                if ( returnData.output === ' ' || typeof returnData.executionTime === 'undefined') {
+                  $("#error").fadeIn();
+                  return false;
+                }
+                
+                $("#encrypt-results").fadeIn();
+                $("#enc-res").html(returnData.output);
+                $("#enc-res").append("<br /><br />Execution time : " + returnData.executionTime + " ms");
+                
+                return false;
+              } catch (err) {
+                alert(err);
+              }
             });
             
             $("#decrypt").on("click", function() {
-              var cipher = $("#decrypt-key").val();
-              var password = $("#decrypt-password").val();
-              var encryption = $("#decrypt-bytes").val(); 
-             
-              var returnData = AES.controller.decrypt(cipher, password, parseInt(encryption));
-
-              $("#dec-res").html(returnData.output);
-              $("#dec-res").append("<br /><br />Execution time : " + returnData.executionTime + " ms");
-              
-              $("#dec-res").fadeIn();
-              
-              return false;
+              try {
+                $("#error").hide();
+                var cipher = $("#decrypt-key").val();
+                var password = $("#decrypt-password").val();
+                var encryption = $("#decrypt-bytes").val(); 
+               
+                var returnData = AES.controller.decrypt(cipher, password, parseInt(encryption));
+                
+                if ( returnData.output === '' || typeof returnData.executionTime === 'undefined') {
+                  $("#error").fadeIn();
+                  return false;
+                } 
+                
+                $("#dec-res").html(returnData.output);
+                $("#dec-res").append("<br /><br />Execution time : " + returnData.executionTime + " ms");
+                
+                $("#dec-res").fadeIn();
+                
+                return false;
+              } catch (err) {
+                alert(err);
+              }
             });
             
             $("#clear-encrypt").on("click", function() {
@@ -117,6 +137,11 @@
       </div>
       <div class="row">
       <hr />
+        <div class="alert alert-danger fade in" id="error" role="alert" style="display:none;">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          <h4>Oh snap! Panic ! Panic ! Panic !</h4>
+          <p>You got an error better start freaking out !!!!!!</p>
+        </div>
       </div>
     </div>
     </body>
